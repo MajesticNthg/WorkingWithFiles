@@ -12,6 +12,7 @@ class Cat { // Объект котик
 public class Main {
     private static final Logger log = Logger.getLogger(Main.class.getName());
     static int sumResult(int[] random1, String path) throws Exception {
+        int flag = 0; // переменная, определяющая наличие или отсутствие ошибки
         int sum = 0; // сумма всех чисел из трех файлов
         int count = 0; // счетчик строк в файле
 
@@ -35,16 +36,20 @@ public class Main {
         }
         catch (FileNotFoundException e) {
             log.log(Level.INFO, "Файл поврежден", new Throwable()); // файл испорчен
+            flag = 1; // переменная принимает значение 1 - есть ошибка
         }
         catch (NumberFormatException e) {
             if (count == -1) {
                 log.log(Level.INFO, "Строк в файле меньше трех", new Throwable()); // строк в файле меньше трех
+                flag = 1;
             }
-            else
+            else {
                 log.log(Level.INFO, "Не числовой формат строки", new Throwable()); // значение не число
+                flag = 1;
+            }
         }
 
-        return sum;
+        return flag;
     }
     public static void main(String[] args) {
         try {
