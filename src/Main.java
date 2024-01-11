@@ -1,12 +1,16 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 class Cat { // Объект котик
     String name; // имя котика
     double weight; // вес котика
     int fq; // частота мурлыканья котика
 }
 public class Main {
+    private static final Logger log = Logger.getLogger(Main.class.getName());
     static int sumResult(int[] random1, String path) throws Exception {
         int sum = 0; // сумма всех чисел из трех файлов
         int count = 0; // счетчик строк в файле
@@ -30,14 +34,14 @@ public class Main {
 
         }
         catch (FileNotFoundException e) {
-            System.out.println("Файл поврежден " + e); // сообщение об испорченном файле
+            log.log(Level.INFO, "Файл поврежден", new Throwable()); // файл испорчен
         }
         catch (NumberFormatException e) {
             if (count == -1) {
-                System.out.println("Строк в файле меньше трех  " + e); // строк в файле меньше трех
+                log.log(Level.INFO, "Строк в файле меньше трех", new Throwable()); // строк в файле меньше трех
             }
             else
-                System.out.println("Не числовой формат " + e); // значение не число
+                log.log(Level.INFO, "Не числовой формат строки", new Throwable()); // значение не число
         }
 
         return sum;
@@ -62,10 +66,6 @@ public class Main {
             int[] random1 = new int[] {1, 2, 3};
             int random2 = rand.nextInt(10) + 1;
             System.out.println(sumResult(random1, "F:\\Программирование\\Обучение Java\\2 курс (с нуля)\\14 Работа с файлами\\"));
-
-
-
-
         }
         catch (Exception e) {
             System.out.println("ERROR " + e);
