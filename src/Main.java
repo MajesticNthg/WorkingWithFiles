@@ -38,16 +38,16 @@ public class Main {
         }
         catch (FileNotFoundException e) {
             log.log(Level.INFO, "Файл поврежден", new Throwable()); // файл испорчен
-            result[0] = 1; // переменная принимает значение 1 - есть ошибка
+            result[0] = 1; // переменная принимает значение, отличное от нуля - есть ошибка
         }
         catch (NumberFormatException e) {
             if (count == -1) {
                 log.log(Level.INFO, "Строк в файле меньше трех", new Throwable()); // строк в файле меньше трех
-                result[0] = 1;
+                result[0] = 2;
             }
             else {
                 log.log(Level.INFO, "Не числовой формат строки", new Throwable()); // значение не число
-                result[0] = 1;
+                result[0] = 3;
             }
         }
 
