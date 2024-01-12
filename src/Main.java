@@ -11,8 +11,9 @@ class Cat { // Объект котик
 }
 public class Main {
     private static final Logger log = Logger.getLogger(Main.class.getName());
-    static int sumResult(int[] random1, String path) throws Exception {
-        int flag = 0; // переменная, определяющая наличие или отсутствие ошибки
+    static int[] sumResult(int[] random1, String path) throws Exception {
+        int[] result = new int[2];
+        result[0] = 0; // переменная, определяющая наличие или отсутствие ошибки
         int sum = 0; // сумма всех чисел из трех файлов
         int count = 0; // счетчик строк в файле
 
@@ -31,30 +32,30 @@ public class Main {
                 }
                 count = 0;
                 br1.close(); // сумма чисел из первого файла
+                result[1] = sum; // итоговая сумма трех файлов
             }
 
         }
         catch (FileNotFoundException e) {
             log.log(Level.INFO, "Файл поврежден", new Throwable()); // файл испорчен
-            flag = 1; // переменная принимает значение 1 - есть ошибка
+            result[0] = 1; // переменная принимает значение 1 - есть ошибка
         }
         catch (NumberFormatException e) {
             if (count == -1) {
                 log.log(Level.INFO, "Строк в файле меньше трех", new Throwable()); // строк в файле меньше трех
-                flag = 1;
+                result[0] = 1;
             }
             else {
                 log.log(Level.INFO, "Не числовой формат строки", new Throwable()); // значение не число
-                flag = 1;
+                result[0] = 1;
             }
         }
 
-        return flag;
+        return result;
     }
     public static void main(String[] args) {
         try {
             Random rand = new Random();
-
             String path = "F:\\Программирование\\Обучение Java\\2 курс (с нуля)\\14 Работа с файлами\\";
 
             for (int n = 1; n < 11; n++) {
@@ -69,8 +70,9 @@ public class Main {
             }
 
             int[] random1 = new int[] {1, 2, 3};
-            int random2 = rand.nextInt(10) + 1;
-            System.out.println(sumResult(random1, "F:\\Программирование\\Обучение Java\\2 курс (с нуля)\\14 Работа с файлами\\"));
+            int[] res = sumResult(random1, path);
+            System.out.println(res[0]);
+            System.out.println(res[1]);
         }
         catch (Exception e) {
             System.out.println("ERROR " + e);
